@@ -1,0 +1,82 @@
+{% extends 'base.html '%}
+{% load static %}
+{% block title %}{{category.Title}}-result{% endblock %}
+ {% block content %}
+    <h2 class = "my-4"> Attempted Questions </h2>
+      
+ <table class = "table table-bordered">
+    <thead>
+      <tr>
+            <th>#</th>
+            <th>Question</th>
+            <th> Right answer </th>
+            <th>submitted Answer </th>
+            
+      </tr>
+    </thead>  
+    <tbody>
+      
+        {% for row in result %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{row.question}}</td>
+            <td>{{row.question.right_opt}}</td>
+            {% if row.question.right_opt == row.right_answer %}
+            <td class = "bg-success text-white">{{row.right_answer}}</td>
+            {% else %}
+              {% if  row.right_answer == 'Not Submitted' %}
+               <td class = "bg-warning text-white">{{row.right_answer}}</td>
+              {% else %}
+              <td class = "bg-danger text-white">{{row.right_answer}}</td>
+              {% endif %}
+            {% endif %}
+           
+
+
+        {% endfor %}
+        </tbody>
+    </table>
+
+  
+    <h2 class = "my-4">Result details </h2>
+      
+    <table class = "table table-bordered">
+       <thead>
+        <tr>
+            <th>Total Questions </th>
+            <th> {{result.count}} </th>
+         </tr>
+         <tr>
+               <th>Total skipped Questions </th>
+               <td> {{total_skipped}} </td>
+            </tr>
+            <tr>
+               <th>Total Attempted Questions </th>
+               <td> {{Attempted_skipped}} </td>
+         </tr>
+         <tr>
+            <th>Total Right Questions </th>
+            <td> {{right}} </td>
+         </tr>
+         <tr>
+            <th>Total Wrong Questions </th>
+            <td> {{wrong}} </td>
+      </tr>
+
+       <tr>
+        {%  if passing  %}
+        <th colspan="2"  style="text-align:center;" class = "bg-success text-white">Total percent  :  {{ passing }}% </th>
+        {% else %}
+
+          <th colspan="2"  style="text-align:center;" class = "bg-danger text-white">Total percent  :  {{ fail }}% </th>
+
+          {% endif %}
+  </tr> 
+         
+       </thead>  
+        
+       </table>
+
+    
+       
+  {% endblock %}

@@ -1,0 +1,97 @@
+{% extends 'base.html '%}
+{% load static %}
+{% block title %}{{category.Title}}-questions{% endblock %}
+ {% block content %}
+    <h2 class = "my-4">Category :<span class = "text-primary"> {{category.Title}} </span>    <h4>  your exam_id : {{ request.user}}_{{unique_id}} </h4>   Question level : 
+        {% if question.que_level == 'easy' %}
+      <button class="button button1">Easy</button>
+      {% elif question.que_level == 'medium' %}
+      <button class="button button2">medium</button>
+      {% else %}
+      <button class="button button3">Hard</button>
+      {% endif %}</h2>  
+ <div class = "card my-5 border-dark shadow">
+   {% comment %} {% if question.que_level == student_data.level %} {% endcomment %}
+       <h4 class = "card-header border-dark"> {{question.question}} <span class = "timer float-end"   <div class="row begin-countdown">
+        <div class="col-md-12 text-center">
+          <div class="dot" style="position: center">
+            <h3 id="pageBeginCountdownText" class="clock">{{question.time_limit}}</h3>
+            <p class="pp"></p>
+          </div>
+        </div>
+      </div>   
+    </span>
+    </h4>
+ 
+    <form method = "post" action = "{% url 'submit_answer' category.id question.id level %}"  >
+        {% csrf_token %}
+    <div class = "card-body">
+        {% comment %} <table class = "table table-bordered"> {% endcomment %}
+            <tr style = "margin-top : 20px;">
+                <td><input value="{{question.opt_1}}"  id = "option_1" name = "answer" type = "radio" />&nbsp;&nbsp;&nbsp;  </td>
+                <th><label for = "option_1" > {{ question.opt_1 }} </label></th>
+            </tr> 
+          <br>   
+            <tr>
+                <td><input  value="{{question.opt_2}}" id = "option_2" name = "answer" type = "radio" />&nbsp;&nbsp;&nbsp;  </td>
+                <th><label for = "option_2" > {{ question.opt_2}} </label></th>
+            </tr> 
+          <br> 
+            <tr>
+                <td><input value="{{question.opt_3}}"  id = "option_3" name = "answer" type = "radio" />&nbsp;&nbsp;&nbsp; </td>
+                <th><label for = "option_3" > {{ question.opt_3}} </label></th>
+            </tr> 
+          <br> 
+            <tr>
+                <td><input  value="{{question.opt_4}}" id = "option_4" name = "answer" type = "radio" />&nbsp;&nbsp;&nbsp; </td>
+                <th><label for = "option_4" > {{ question.opt_4}} </label></th>
+            </tr> 
+          <br>
+        {% comment %} </table> {% endcomment %}
+    </div>
+    <div class =  "card-footer">
+        <input type = "submit" name = "skip" value = "skip" class = "btn btn-warning skipBtn" />
+        <input type = "submit" name = "submit" value = "submit" class = "btn btn-primary submitBtn" />
+    </div>
+</form>
+</div> 
+<script type = "text/javascript" src = "{% static 'code.jquery.com_jquery-3.5.1.min.js' %}" ></script>
+<script type = "text/javascript" src = "{% static 'countdown-timer-improve-efficiency/js/countdowntimer.js' %}" ></script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $(".submitBtn").on('click',function(){
+            var _checkedAns = $("input[name='answer']:checked").val();
+            if(_checkedAns==undefined){
+                alert('please select option !!');
+                return false;
+            }
+
+        });
+       
+       
+    });
+    
+ 
+</script>
+  <script>
+    ProgressCountdown({{question.time_limit}}, "pageBeginCountdownText");
+
+    function ProgressCountdown(timeleft, text) {
+      return new Promise((resolve, reject) => {
+        var countdownTimer = setInterval(() => {
+          timeleft--;
+
+          document.getElementById(text).textContent = timeleft;
+
+          if (timeleft <= 0  ) {
+            clearInterval(countdownTimer);
+            resolve(true);
+          }
+        }, 1000);
+      });
+    }
+ 
+   
+  </script>  
+  
+  {% endblock %}

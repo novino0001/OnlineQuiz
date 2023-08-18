@@ -1,0 +1,86 @@
+{% extends 'base.html '%}
+{% load static %}
+{% block title %}{{category.Title}}-filter{% endblock %}
+ {% block content %}
+ 
+ <style>
+    .require:after {
+      content:" *";
+      color: red;
+    }
+  </style>
+ <h3 class = "my-4 text-center">Enter required Details.. </h3>
+   
+<div class  = "container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card bg-dark text-white">
+                <div class = "card-body">
+                    
+
+                    <form action="" method="POST">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            
+                         <label for = "name" class="require">student name</label>
+                         <input id="name" name = "student_name" value="{{request.user}}" type="text" class="form-control" required  placeholder="enter name">
+                        </div>
+                         
+
+                        <div class="mb-3">
+                             
+                            <label for = "institute" class="require">institute name</label>
+                            <input id="institute" name = "institute_name" type="text" class="form-control" required   placeholder="enter institute name">
+                           </div>
+                        
+
+                           <div class="mb-3">
+                            
+                            <label for = "Qualification" class="require">Qualification</label>
+                            <input id="Qualification" name="Qualification" type="text" class="form-control" required   placeholder="enter highest Qualification">
+                           </div>
+                         
+                           <div class="mb-3">
+                          
+                            <label for = "Qualification">Phone_no</label>
+                            <input id="Qualification" name="Phone_no" type="text" class="form-control"  placeholder="enter Phone_no">
+                           </div>
+                           
+                           <div required>
+                           <!-- <div class="mb-3"> select question level </div> -->
+                           <label for = "level" class="require"   >select question level</label>
+                           <select name = "select_level" id="level" class="form-control" required>
+                            <option selected> select question level</option>
+                            <option value="easy">easy</option>
+                            <option value="medium">medium</option>
+                            <option value="hard">hard</option>
+
+                           </select>
+                           <br>
+                           <!-- <div class=" mb-3  form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                            <label class="form-check-label" for="inlineCheckbox1">Easy</label>
+                          </div>
+                          <div class="mb-3  form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                            <label class="form-check-label" for="inlineCheckbox2">Medium</label>
+                          </div>
+                          <div class="mb-3  form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+                            <label class="form-check-label" for="inlineCheckbox3">Hard</label>
+                          </div> -->
+                        <div class="container text-center">
+                            <button class = "btn btn-primary">start quiz</button>
+                        </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+ {% endblock %}

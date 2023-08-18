@@ -1,0 +1,68 @@
+{% extends 'base.html '%}
+{% load static %}
+{% block title %}All-Category {% endblock %}
+{% block content %}
+    <h3 class = "my-4"> Available Category </h3>
+    {% comment %} <a href = "{% url 'logout' %}">Logout</a> {% endcomment %}
+
+
+    <div class = "row">
+      {% for category in category_data%}
+      <div class = "col-md-4">
+          <div class = "card">
+                 <a href = "{% url 'student_info' category.id %}" ><img class = "img" src="/media/{{category.image}} " class="card-img-top" alt="Category Title"></a>
+                  <div class="card-body">
+                    <h5 class="card-title"><a href = "{% url 'student_info' category.id %}" >{{category.Title}}</a></h5>
+                  </div>
+          </div>
+    </div>
+    {% endfor %} 
+  </div> 
+    
+    
+
+
+    {% comment %} <div class = "row" style = "margin-left : 40px; margin-top : 40px; margin-right : 40px;" >
+    
+        <div    class="cards" >
+          {% for data in info %}
+          <div class="card1">
+            <img class="img" src= "/media/{{category.image}}" alt="">
+            <h3  style = "text-align : center;"> {{category.Title}} </h3>
+            <div class="card__content">
+               
+            
+            <div class="card__info"> 
+              <div>
+                
+                <p> {{data.created_on|truncatechars:12}} </p>
+  
+         
+                {% if request.user.is_authenticated %}
+                  {% if  request.user == data.user %}
+                 
+                    <a href = "/update_Blog/{{data.id}}" class = "btn btn-success">update</a>
+   
+                      <a  href = " /delete_Blog/{{data.id}}" onclick = "return myFunction()" class = "btn btn-danger">Delete </a>
+                     {% endif %}
+                {% endif %}    
+              </div>
+              <div>
+  
+                <a style = "float : right ;  font-size :12px;"  href= "/Blog_details/{{data.Blog_slug}}" class="card__link">View more..</a>
+  
+                
+              </div>
+            </div>
+          
+           
+        </div>   
+        {% endfor %} 
+        </div>  
+       
+      </div>  {% endcomment %}
+
+
+
+   
+  {% endblock %}

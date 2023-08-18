@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      ProgressCountdown(10, "pageBeginCountdownText");
+
+      function ProgressCountdown(timeleft, text) {
+        return new Promise((resolve, reject) => {
+          var countdownTimer = setInterval(() => {
+            timeleft--;
+
+            document.getElementById(text).textContent = timeleft;
+
+            if (timeleft <= 0) {
+              clearInterval(countdownTimer);
+              resolve(true);
+            }
+          }, 1000);
+        });
+      }
+    </script>
+
+    <style>
+      .dot {
+        height: 100px;
+        width: 100px;
+        border-style: solid;
+        border-width: 2px;
+        border-radius: 50%;
+        display: inline-block;
+        text-align: center;
+      }
+
+      .clock {
+        text-align: center;
+      }
+      .pp {
+        text-align: center;
+      }
+
+      
+    </style>
+
+    <div class="row begin-countdown">
+      <div class="col-md-12 text-center">
+        <div class="dot" style="position: center">
+          <h3 id="pageBeginCountdownText" class="clock">10</h3>
+          <p class="pp">Seonds</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
